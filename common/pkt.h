@@ -50,7 +50,7 @@ typedef struct sendpktargument {
 // 参数son_conn是SIP进程和SON进程之间的TCP连接套接字描述符.
 // 当通过SIP进程和SON进程之间的TCP连接发送数据结构sendpkt_arg_t时, 使用'!&'和'!#'作为分隔符, 按照'!& sendpkt_arg_t结构 !#'的顺序发送.
 // 如果发送成功, 返回1, 否则返回-1.
-int son_sendpkt(int nextNodeID, sip_pkt_t* pkt, int son_conn);
+int son_sendpkt(int nextNodeID, sip_pkt_t* pkt, int son_conn);//虽然他说封装在sendpkt中，实际上为了简化就做了int－－－－－－－XP认为＊＊＊＊＊＊＊＊＊＊＊＊＊＊
 
 // son_recvpkt()函数由SIP进程调用, 其作用是接收来自SON进程的报文. 
 // 参数son_conn是SIP进程和SON进程之间TCP连接的套接字描述符. 报文通过SIP进程和SON进程之间的TCP连接发送, 使用分隔符!&和!#. 

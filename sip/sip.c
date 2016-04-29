@@ -34,16 +34,52 @@ int son_conn; 		//到重叠网络的连接
 
 //SIP进程使用这个函数连接到本地SON进程的端口SON_PORT
 //成功时返回连接描述符, 否则返回-1
-int connectToSON() { 
+int connectToSON() {
+
+    struct sockaddr_in servaddr;
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0); //AF_INET for ipv4; SOCK_STREAM for byte stream
+    if(sockfd < 0) {
+        printf("Socket error!\n");
+        return 0;
+    }
+    memset(&servaddr, 0, sizeof(struct sockaddr_in));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_addr.s_addr = topology_getMyNodeID()+init_ip;
+    servaddr.sin_port = htons(SON_PORT);
+    //connect to the server
+    if(connect(sockfd, (struct sockaddr* )&servaddr, sizeof(servaddr)) < 0) {//创建套接字连接服务器
+        printf("IP %d Link Wrong!\n",topology_getMyNodeID());
+        //exit(1);
+        return -1;
+    }
+    else
+    {
+        printf("IP %d Link Success!\n",topology_getMyNodeID());
+        return sockfd;
+        
+    }
 	//你需要编写这里的代码.
-  return 0;
 }
 
 //这个线程每隔ROUTEUPDATE_INTERVAL时间就发送一条路由更新报文
-//在本实验中, 这个线程只广播空的路由更新报文给所有邻居, 
+//在本实验中, 这个线程只广播空的路由更新报文给所有邻居,
 //我们通过设置SIP报文首部中的dest_nodeID为BROADCAST_NODEID来发送广播
 void* routeupdate_daemon(void* arg) {
 	//你需要编写这里的代码.
+    sip_pkt_t* pkt = (sip_pkt_t*)malloc(sizeof(sip_pkt_t));
+    memset(pkt,0,sizeof(sip_pkt_t));
+    pkt->header.src_nodeID = topology_getMyNodeID();
+    pkt->header.dest_nodeID = BROADCAST_NODEID;
+    pkt->header.length = sizeof(pkt_routeupdate_t);
+    pkt->header.type = ROUTE_UPDATE;
+    pkt_routeupdate_t* pkuppt = (pkt_routeupdate_t*)malloc(sizeof(pkt_routeupdate_t));
+    memset(pkt,0,sizeof(pkt_routeupdate_t));
+    memcpy(pkt->data,pkuppt,sizeof(pkt_routeupdate_t));
+    while(1)
+    {
+        sleep(ROUTEUPDATE_INTERVAL);
+        son_sendpkt(BROADCAST_NODEID, pkt, son_conn);
+    }
   return 0;
 }
 
@@ -64,6 +100,7 @@ void* pkthandler(void* arg) {
 //这个函数终止SIP进程, 当SIP进程收到信号SIGINT时会调用这个函数. 
 //它关闭所有连接, 释放所有动态分配的内存.
 void sip_stop() {
+    close(son_conn);
 	//你需要编写这里的代码.
 }
 
