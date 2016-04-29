@@ -2,7 +2,7 @@ all: son/son sip/sip
 common/pkt.o: common/pkt.c common/pkt.h common/constants.h
 	gcc -Wall -pedantic -std=c99 -g -c common/pkt.c -o common/pkt.o
 topology/get_local_ip.o: topology/get_local_ip.c
-	gcc -Wall -pedantic -std=c99 -g -c topology/get_local_ip.c -o topology/get_local_ip.o
+	gcc -Wall -pedantic -g -c topology/get_local_ip.c -o topology/get_local_ip.o
 topology/topology.o: topology/get_local_ip.o topology/topology.c 
 	gcc -Wall -pedantic -std=c99 -g -c topology/get_local_ip.o topology/topology.c -o topology/topology.o
 son/neighbortable.o: son/neighbortable.c

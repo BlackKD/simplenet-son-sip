@@ -3,14 +3,14 @@
  * Read the /proc/net/route file
  */
  
-#include<stdio.h> //printf
-#include<string.h>    //memset
-#include<errno.h> //errno
-#include<sys/socket.h>
-#include<netdb.h>
-#include<ifaddrs.h>
-#include<stdlib.h>
-#include<unistd.h>
+#include <stdio.h> //printf
+#include <string.h>    //memset
+#include <errno.h> //errno
+#include <sys/socket.h>
+#include <netdb.h>
+#include <ifaddrs.h>
+#include <stdlib.h>
+#include <unistd.h>
  
  /*
   * This function places the 4 bytes(unsigned integer) of ip address into ip[4]
@@ -46,7 +46,7 @@ int get_local_ip(unsigned char ip[4])
     if (getifaddrs(&ifaddr) == -1) 
     {
         perror("getifaddrs");
-        exit(EXIT_FAILURE);
+		return 0;
     }
  
     //Walk through linked list, maintaining head pointer so we can free list later
@@ -69,10 +69,10 @@ int get_local_ip(unsigned char ip[4])
                 if (s != 0) 
                 {
                     printf("getnameinfo() failed: %s\n", gai_strerror(s));
-                    exit(EXIT_FAILURE);
+					return 0;
                 }
-                sscanf(host, "%u\.%u\.%u\.%u", ip, ip+1, ip+2, ip+3);
-                printf("Host's address: %d.%d.%d.%d", host);
+                sscanf(host, "%u\.%u\.%u\.%u", (unsigned *)ip, (unsigned *)(ip+1), (unsigned *)(ip+2), (unsigned *)(ip+3));
+                printf("Host's address: %u.%u.%u.%u", ip[0], ip[1], ip[2], ip[3]);
             }
             printf("\n");
         }
@@ -80,5 +80,5 @@ int get_local_ip(unsigned char ip[4])
  
     freeifaddrs(ifaddr);
      
-    return 0;
+    return 1;
 }
