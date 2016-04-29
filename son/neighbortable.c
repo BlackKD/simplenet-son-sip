@@ -13,17 +13,25 @@
 
 nbr_entry_t* nt_create()
 {
-    int myid = topology_getMyNodeID();
+   /* int myid = topology_getMyNodeID();
     FILE *fp=fopen("topology/topology.dat","r");
     if(fp==NULL)//如果失败了
     {
         perror("../topology/topology.dat");
         printf("错误！");
         exit(1);//中止程序
-    }
-    nbr_entry_t* myentry = (nbr_entry_t*)malloc(sizeof(nbr_entry_t)*10);
-    memset((char *)myentry,0,sizeof(nbr_entry_t)*10);
+    }*/
+    nbr_entry_t* myentry = (nbr_entry_t*)malloc(sizeof(nbr_entry_t)*topology_getNbrNum());
+    memset((char *)myentry,0,sizeof(nbr_entry_t)*topology_getNbrNum());
+    int * nodelist = topology_getNbrArray();
     int i = 0;
+    for(i = 0 ; i < topology_getNbrNum();i++)
+    {
+        myentry[i].nodeID = nodelist[i];
+        myentry[i].nodeIP = nodelist[i]+ init_ip;
+        myentry[i].conn = -1;
+    }
+   /* int i = 0;
     do
     {
         char temp[20];
@@ -52,7 +60,7 @@ nbr_entry_t* nt_create()
             myentry[i].conn = -1;
             i++;
         }
-    }while (!feof(fp));
+    }while (!feof(fp));*/
     
   return myentry;
 }
