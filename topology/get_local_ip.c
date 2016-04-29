@@ -13,9 +13,10 @@
 #include <unistd.h>
  
  /*
-  * This function places the 4 bytes(unsigned integer) of ip address into ip[4]
+  * On error, 0 is returned
+  * On success, the value of the ip address is returned(little endian)
   */
-int get_local_ip(unsigned char ip[4])
+unsigned long get_local_ip()
 {
     FILE *f;
     char line[100] , *p , *c;
@@ -31,7 +32,7 @@ int get_local_ip(unsigned char ip[4])
         {
             if(strcmp(c , "00000000") == 0)
             {
-                printf("Default interface is : %s \n" , p);
+                //printf("Default interface is : %s \n" , p);
                 break;
             }
         }
@@ -42,6 +43,7 @@ int get_local_ip(unsigned char ip[4])
     struct ifaddrs *ifaddr, *ifa;
     int family , s;
     char host[NI_MAXHOST];
+    unsigned long ip_value =0;
  
     if (getifaddrs(&ifaddr) == -1) 
     {
@@ -71,8 +73,16 @@ int get_local_ip(unsigned char ip[4])
                     printf("getnameinfo() failed: %s\n", gai_strerror(s));
 					return 0;
                 }
-                sscanf(host, "%u\.%u\.%u\.%u", (unsigned *)ip, (unsigned *)(ip+1), (unsigned *)(ip+2), (unsigned *)(ip+3));
-                printf("Host's address: %u.%u.%u.%u", ip[0], ip[1], ip[2], ip[3]);
+                
+                unsigned char ip0, ip1, ip2, ip3; // must be this order, for the position in the stack
+                sscanf(host, "%u\.%u\.%u\.%u", &ip3, &ip2, &ip1, &ip0);
+                printf("Host's address: %u.%u.%u.%u", ip3, ip2, ip1, ip0); // 1 byte <- 4 bytes, will cover
+
+                char *ip_val_ptr = (char *)(&ip_value);
+                ip_val_ptr[0] = ip0; 
+                ip_val_ptr[1] = ip1;
+                ip_val_ptr[2] = ip2;
+                ip_val_ptr[3] = ip3;
             }
             printf("\n");
         }
@@ -80,5 +90,5 @@ int get_local_ip(unsigned char ip[4])
  
     freeifaddrs(ifaddr);
      
-    return 1;
+    return ip_value;
 }
