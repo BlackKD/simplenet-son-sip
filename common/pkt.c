@@ -71,8 +71,9 @@ static inline int recv2buf(char *buffer, int buf_len, int conn) {
 								printf("Received a packet successfully. \n");
 								return 1;
 							}
-							else if(bytes_in_buf < buf_len) { // END_CHAR0 appeared in the data
+							else if(bytes_in_buf < buf_len - 1) { // END_CHAR0 appeared in the data
 								buffer[bytes_in_buf++] = END_CHAR0;
+								buffer[bytes_in_buf++] = c;
 								state = PKTRECV;
 							}
 							else {
