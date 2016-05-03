@@ -17,11 +17,11 @@ extern unsigned long get_local_ip();
 int myNodeId = 0;
 
 FILE *open_dat() {
-	FILE *fp=fopen("topology.dat","r");
+	FILE *fp=fopen("topology/topology.dat","r");
     if(fp==NULL)//如果失败了
     {
-        perror("topology.dat");
-        printf("错误！");
+        perror("topology/topology.dat");
+        //printf("错误！");
         exit(1);//中止程序
     }
     return fp;
