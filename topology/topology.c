@@ -192,7 +192,7 @@ int topology_getNodeIDfromip(struct in_addr* addr)
 
 	unsigned char *ip = (unsigned char *)(&(addr->s_addr));
 	//printf("addr: %u.%u.%u.%u ", (unsigned)(ip[3]), (unsigned)(ip[2]), (unsigned)(ip[1]), (unsigned)(ip[0]));
-	return (int)(ip[0]);
+	return (int)(ip[3]);
 }
 
 //这个函数返回本机的节点ID
