@@ -202,7 +202,7 @@ int getpktToSend(sip_pkt_t* pkt, int* nextNode, int sip_conn)
 // 如果报文发送成功, 返回1, 否则返回-1.
 int forwardpktToSIP(sip_pkt_t* pkt, int sip_conn)
 {
-	char buffer[1508];
+	char buffer[1504];
 	build_sipSendBuf(buffer, pkt);
 
 	// send it
