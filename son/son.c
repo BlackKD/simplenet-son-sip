@@ -87,7 +87,7 @@ void* waitNbrs(void* arg) {
             return 0;
         }*/
         int t = nt_addconn(nt, neberid, connfd);
-        if(t!=1||t!=0)
+        if(t!=1&&t!=0)
         {
             printf("error neberid!\n");
         }
