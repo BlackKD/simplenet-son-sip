@@ -59,12 +59,14 @@ void* waitNbrs(void* arg) {
     servaddr.sin_addr.s_addr=htonl(INADDR_ANY);
     servaddr.sin_port=htons(CONNECTION_PORT);
     bind(listenfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
-    listen(listenfd,MAX_NODE_NUM);//开始监听
+   
 	int temp = 0;
     for(temp = 0;temp < topology_getNbrNum;temp++)
     {
+	 listen(listenfd,MAX_NODE_NUM);//开始监听	
     clilen = sizeof(cliaddr);
     int connfd = accept(listenfd,(struct sockaddr *)&cliaddr,&clilen);
+	close(listenfd);
    // if((pid = fork()) == 0)
     //{
      //   close(listenfd);
