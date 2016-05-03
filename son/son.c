@@ -98,7 +98,10 @@ void* waitNbrs(void* arg) {
         for(j = 0;j<topology_getNbrNum();j++)
         {
             if(nt[j].conn == -1&&nt[j].nodeID > topology_getMyNodeID())
+			{
                 full = 0;
+				printf("nt num :%d   %d\n",j,topology_getMyNodeID());
+			}
         }
         if(full)
             break;
