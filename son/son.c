@@ -52,6 +52,16 @@ void* waitNbrs(void* arg) {
     socklen_t clilen;
     int listenfd;
     //char buf[MAXLINE];
+		int j = 0;
+		int full = 0;
+		for(j = 0;j<topology_getNbrNum();j++)
+        {
+            if(nt[j].nodeID > topology_getMyNodeID())
+			{
+                full ++;
+				//printf("nt num :%d   %d\n",j,topology_getMyNodeID());
+			}
+        }   
     struct sockaddr_in cliaddr,servaddr;
     listenfd = socket(AF_INET,SOCK_STREAM,0);
     memset(&servaddr, 0, sizeof(struct sockaddr_in));
@@ -60,16 +70,8 @@ void* waitNbrs(void* arg) {
     servaddr.sin_port=htons(CONNECTION_PORT);
     bind(listenfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
     listen(listenfd,MAX_NODE_NUM);//开始监听
-	int j = 0;
-	int full = 0;
-	for(j = 0;j<topology_getNbrNum();j++)
-        {
-            if(nt[j].nodeID > topology_getMyNodeID())
-			{
-                full ++;
-				//printf("nt num :%d   %d\n",j,topology_getMyNodeID());
-			}
-        }   
+
+
 	int temp = 0;
 	printf("full:%d",full);
     for(temp = 0;temp < full;temp++)
