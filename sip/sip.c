@@ -44,7 +44,7 @@ int connectToSON() {
     }
     memset(&servaddr, 0, sizeof(struct sockaddr_in));
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = topology_getMyNodeID()+init_ip;
+    servaddr.sin_addr.s_addr = (unsigned long)(((unsigned long)topology_getMyNodeID())<<24)+ init_ip;
     servaddr.sin_port = htons(SON_PORT);
     //connect to the server
     if(connect(sockfd, (struct sockaddr* )&servaddr, sizeof(servaddr)) < 0) {//创建套接字连接服务器
