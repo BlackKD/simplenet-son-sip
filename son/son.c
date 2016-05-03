@@ -86,12 +86,15 @@ void* waitNbrs(void* arg) {
             printf("error node !\n");
             return 0;
         }*/
-        
-        if(nt_addconn(nt, neberid, connfd)!=1)
+        int t = nt_addconn(nt, neberid, connfd);
+        if(t!=1||t!=0)
         {
             printf("error neberid!\n");
         }
-        else
+        else if(t == 0)
+		{
+			temp--;
+		}else
         {
             //return 1;
 			printf("neberid : %d link sucess\n",neberid);
