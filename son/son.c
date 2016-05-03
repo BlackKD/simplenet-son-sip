@@ -123,6 +123,7 @@ int connectNbrs() {
             memset(&servaddr, 0, sizeof(struct sockaddr_in));
             servaddr.sin_family = AF_INET;
             servaddr.sin_addr.s_addr = nt[i].nodeIP;
+			printf("IP :%d\n",servaddr.sin_addr.s_addr);
             servaddr.sin_port = htons(CONNECTION_PORT);
             //connect to the server
             if(connect(sockfd, (struct sockaddr* )&servaddr, sizeof(servaddr)) < 0) {//创建套接字连接服务器

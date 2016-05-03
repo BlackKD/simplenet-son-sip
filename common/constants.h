@@ -31,7 +31,7 @@
 
 //这是广播节点ID. 如果SON进程从SIP进程处接收到一个目标节点ID为BROADCAST_NODEID的报文, 它应该将该报文发送给它的所有邻居
 #define BROADCAST_NODEID 9999
-#define init_ip 1926544896;
+#define init_ip 0x00bed472;
 #define myip  1926545084;
 //路由更新广播间隔, 以秒为单位
 #define ROUTEUPDATE_INTERVAL 5
