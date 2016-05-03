@@ -106,8 +106,7 @@ void* waitNbrs(void* arg) {
 			}
         }
         if(full)
-            break;
-    }
+            return 1;    
   return 0;
 }
 
