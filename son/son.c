@@ -71,6 +71,7 @@ void* waitNbrs(void* arg) {
 			}
         }   
 	int temp = 0;
+	printf("full:%d",full);
     for(temp = 0;temp < full;temp++)
     {
 	
