@@ -209,7 +209,7 @@ void waitSIP() {
         memset(pkt,0,sizeof(sip_pkt_t));
         int nextNode = 0;
     // 如果成功接收sendpkt_arg_t结构, 返回1, 否则返回-1.
-        if(getpktToSend(pkt,nextNode,connfd)==1)
+        if(getpktToSend(pkt,&nextNode,connfd)==1)
         {
             if(nextNode == BROADCAST_NODEID)
             {
