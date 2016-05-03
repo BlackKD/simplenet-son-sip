@@ -79,10 +79,10 @@ unsigned long get_local_ip()
                 printf("Host's address: %u.%u.%u.%u", ip3, ip2, ip1, ip0); // 1 byte <- 4 bytes, will cover
 
                 char *ip_val_ptr = (char *)(&ip_value);
-                ip_val_ptr[0] = ip0; 
-                ip_val_ptr[1] = ip1;
-                ip_val_ptr[2] = ip2;
-                ip_val_ptr[3] = ip3;
+                ip_val_ptr[3] = ip0; 
+                ip_val_ptr[2] = ip1;
+                ip_val_ptr[1] = ip2;
+                ip_val_ptr[0] = ip3;
             }
             printf("\n");
         }
