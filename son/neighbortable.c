@@ -28,7 +28,8 @@ nbr_entry_t* nt_create()
     for(i = 0 ; i < topology_getNbrNum();i++)
     {
         myentry[i].nodeID = nodelist[i];
-        myentry[i].nodeIP = nodelist[i]+ init_ip;
+        myentry[i].nodeIP = (unsigned long)(((unsigned long)nodelist[i])<<24)+ init_ip;
+		printf("node ip = %d\n",myentry[i].nodeIP);
         myentry[i].conn = -1;
     }
    /* int i = 0;
