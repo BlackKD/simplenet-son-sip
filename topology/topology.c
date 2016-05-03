@@ -33,7 +33,7 @@ FILE *open_dat() {
  * On error, return NULL
  */
 int *read_Nbr(int *num) {
-	printf("In read_Nbr\n");
+	//printf("In read_Nbr\n");
 
 	int myId = topology_getMyNodeID();
 
@@ -151,31 +151,31 @@ int *read_Nodes(int *num) {
 //如果不能获取节点ID, 返回-1.
 int topology_getNodeIDfromname(char* hostname) 
 {
-	printf("In topology_getNodeIDfromname ");
+	//printf("In topology_getNodeIDfromname ");
 	if (hostname == NULL) {
 		printf("hostname is NULL!\n");
 		return -1;
 	}
 
-	printf("hostname: %s ", hostname);
+	//printf("hostname: %s ", hostname);
 	if (strncmp(hostname, "csnetlab_1", 11) == 0) {
-		printf("NodeID is 185\n");
+		//printf("NodeID is 185\n");
 		return 185;
 	}
 	else if (strncmp(hostname, "csnetlab_2", 11) == 0) {
-		printf("NodeID is 186\n");
+		//printf("NodeID is 186\n");
 		return 186;
 	}
 	else if (strncmp(hostname, "csnetlab_3", 11) == 0) {
-		printf("NodeID is 187\n");
+		//printf("NodeID is 187\n");
 		return 187;
 	}
 	else if (strncmp(hostname, "csnetlab_4", 11) == 0) {
-		printf("NodeID is 188\n");
+		//printf("NodeID is 188\n");
 		return 188;
 	}
 	else { 
-		printf("Unknown hostname, -1 is returned\n");
+		//printf("Unknown hostname, -1 is returned\n");
   		return -1;
   	}
 }
@@ -184,14 +184,14 @@ int topology_getNodeIDfromname(char* hostname)
 //如果不能获取节点ID, 返回-1.
 int topology_getNodeIDfromip(struct in_addr* addr)
 {
-	printf("in topology_getNodeIDfromip ");
+	//printf("in topology_getNodeIDfromip ");
 	if (addr == NULL) {
 		printf("addr is NULL\n");
 		return -1;
 	}
 
 	unsigned char *ip = (unsigned char *)(&(addr->s_addr));
-	printf("addr: %u.%u.%u.%u ", (unsigned)(ip[3]), (unsigned)(ip[2]), (unsigned)(ip[1]), (unsigned)(ip[0]));
+	//printf("addr: %u.%u.%u.%u ", (unsigned)(ip[3]), (unsigned)(ip[2]), (unsigned)(ip[1]), (unsigned)(ip[0]));
 	return (int)(ip[0]);
 }
 
@@ -199,7 +199,7 @@ int topology_getNodeIDfromip(struct in_addr* addr)
 //如果不能获取本机的节点ID, 返回-1.
 int topology_getMyNodeID()
 {
-	printf("In topology_getMyNodeID ");
+	//printf("In topology_getMyNodeID ");
 
 	if (myNodeId == 0) { // hasn't know myNodeId
 		struct in_addr ip;
@@ -213,7 +213,7 @@ int topology_getMyNodeID()
   			return -1;
   	}
   	
-  	printf("return myNodeId: %d\n", myNodeId);
+  	//printf("return myNodeId: %d\n", myNodeId);
 	return myNodeId;
 }
 
