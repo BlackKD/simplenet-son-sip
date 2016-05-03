@@ -59,9 +59,19 @@ void* waitNbrs(void* arg) {
     servaddr.sin_addr.s_addr=htonl(INADDR_ANY);
     servaddr.sin_port=htons(CONNECTION_PORT);
     bind(listenfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
-    listen(listenfd,MAX_NODE_NUM);//开始监听	
+    listen(listenfd,MAX_NODE_NUM);//开始监听
+	int j = 0;
+	int full = 0;
+	for(j = 0;j<topology_getNbrNum();j++)
+        {
+            if(nt[j].nodeID > topology_getMyNodeID())
+			{
+                full ++;
+				//printf("nt num :%d   %d\n",j,topology_getMyNodeID());
+			}
+        }   
 	int temp = 0;
-    for(temp = 0;temp < topology_getNbrNum();temp++)
+    for(temp = 0;temp < full;temp++)
     {
 	
     clilen = sizeof(cliaddr);
@@ -99,19 +109,12 @@ void* waitNbrs(void* arg) {
             //return 1;
 			printf("neberid : %d link sucess\n",neberid);
         }
+		
+		    int j= 0;
+        //int full = 1;
+         
     }
-    int j= 0;
-        int full = 1;
-        for(j = 0;j<topology_getNbrNum();j++)
-        {
-            if(nt[j].conn == -1&&nt[j].nodeID > topology_getMyNodeID())
-			{
-                full = 0;
-				printf("nt num :%d   %d\n",j,topology_getMyNodeID());
-			}
-        }
-        if(full)
-            return 1;    
+
   return 0;
 }
 
