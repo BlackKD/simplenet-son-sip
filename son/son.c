@@ -61,7 +61,7 @@ void* waitNbrs(void* arg) {
     bind(listenfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
    
 	int temp = 0;
-    for(temp = 0;temp < topology_getNbrNum;temp++)
+    for(temp = 0;temp < topology_getNbrNum();temp++)
     {
 	 listen(listenfd,MAX_NODE_NUM);//开始监听	
     clilen = sizeof(cliaddr);
