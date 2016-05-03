@@ -86,6 +86,7 @@ int nt_addconn(nbr_entry_t* nt, int nodeID, int conn)
         if(nt[i].nodeID == nodeID)
         {
             nt[i].conn = conn;
+			break;
         }
     }
     if(i==topology_getNbrNum())
