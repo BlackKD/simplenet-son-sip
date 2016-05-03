@@ -60,13 +60,14 @@ void* waitNbrs(void* arg) {
     servaddr.sin_port=htons(CONNECTION_PORT);
     bind(listenfd,(struct sockaddr *)&servaddr,sizeof(servaddr));
     listen(listenfd,MAX_NODE_NUM);//开始监听
-    for(;;)
+	int temp = 0;
+    for(temp = 0;temp < topology_getNbrNum;temp++)
     {
     clilen = sizeof(cliaddr);
     int connfd = accept(listenfd,(struct sockaddr *)&cliaddr,&clilen);
-    if((pid = fork()) == 0)
-    {
-        close(listenfd);
+   // if((pid = fork()) == 0)
+    //{
+     //   close(listenfd);
         int neberid = topology_getNodeIDfromip((struct in_addr*)&(cliaddr.sin_addr));
         printf("neberid : %d\n",neberid);
         /*int i = 0;
@@ -90,7 +91,8 @@ void* waitNbrs(void* arg) {
         }
         else
         {
-        return 1;
+            //return 1;
+			printf("neberid : %d link sucess\n",neberid);
         }
     }
     int j= 0;
