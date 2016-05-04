@@ -146,7 +146,9 @@ int son_sendpkt(int nextNodeID, sip_pkt_t* pkt, int son_conn)
 {
 	char buffer[1508];
 	build_sonSendBuf(buffer, nextNodeID, pkt);
-
+    sendpkt_arg_t *p= (sendpkt_arg_t *)(buffer + 2);
+    printf("nextNodeID: %d", p->nextNodeID);
+    printf("myId: %d, nextId: %d\n", p->pkt.header.src_nodeID, p->pkt.header.dest_nodeID);
 	// send it
 	return Send(son_conn, buffer, sizeof(buffer));
 }
@@ -189,6 +191,7 @@ int getpktToSend(sip_pkt_t* pkt, int* nextNode, int sip_conn)
 		sendpkt_arg_t *p = (sendpkt_arg_t *)buffer;
 		*nextNode = p->nextNodeID;
 		memcpy(pkt, &(p->pkt), sizeof(sip_pkt_t));
+        printf("rec myid %d  %d in buffer, next :%d\n",p->pkt.header.src_nodeID, pkt->header.src_nodeID,*nextNode);
 		return 1;
 	}
 	else 

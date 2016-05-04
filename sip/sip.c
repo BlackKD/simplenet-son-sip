@@ -69,6 +69,7 @@ void* routeupdate_daemon(void* arg) {
     sip_pkt_t* pkt = (sip_pkt_t*)malloc(sizeof(sip_pkt_t));
     memset(pkt,0,sizeof(sip_pkt_t));
     pkt->header.src_nodeID = topology_getMyNodeID();
+    printf("send neb my iD : %d\n",pkt->header.src_nodeID);
     pkt->header.dest_nodeID = BROADCAST_NODEID;
     pkt->header.length = sizeof(pkt_routeupdate_t);
     pkt->header.type = ROUTE_UPDATE;
@@ -92,8 +93,8 @@ void* pkthandler(void* arg) {
 	while(son_recvpkt(&pkt,son_conn)>0) {
 		printf("Routing: received a packet from neighbor %d\n",pkt.header.src_nodeID);
 	}
-	close(son_conn);
-	son_conn = -1;
+	//close(son_conn);
+	//son_conn = -1;
 	pthread_exit(NULL);
 }
 
