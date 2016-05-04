@@ -191,7 +191,7 @@ int getpktToSend(sip_pkt_t* pkt, int* nextNode, int sip_conn)
 		sendpkt_arg_t *p = (sendpkt_arg_t *)buffer;
 		*nextNode = p->nextNodeID;
 		memcpy(pkt, &(p->pkt), sizeof(sip_pkt_t));
-        printf("rec myid %d  %d in buffer, next :%d\n",p->pkt.header.src_nodeID, pkt->header.src_nodeID,*nextNode);
+        printf("ready myid %d  %d in buffer, next :%d\n",p->pkt.header.src_nodeID, pkt->header.src_nodeID,*nextNode);
 		return 1;
 	}
 	else 
@@ -225,6 +225,8 @@ int sendpkt(sip_pkt_t* pkt, int conn)
 
 	//char buffer[1504];
 	build_sipSendBuf(buffer, pkt);
+    sip_pkt_t * p = (sip_pkt_t *)(buffer+2);
+    printf("rec myid %d  in buffer\n",p->header.src_nodeID);
 
 	// send it
 	return Send(conn, buffer, 1504);

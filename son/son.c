@@ -228,6 +228,7 @@ void waitSIP() {
     // 如果成功接收sendpkt_arg_t结构, 返回1, 否则返回-1.
         if(getpktToSend(pkt,&nextNode,sip_conn)==1)
         {
+            printf("in son ready to send:%d\n",pkt->header.src_nodeID);
             if(nextNode == BROADCAST_NODEID)
             {
                 int i = 0;
