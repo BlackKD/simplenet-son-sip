@@ -50,10 +50,10 @@ static inline int recv2buf(char *buffer, int buf_len, int conn) {
 		switch(state) {
 			case PKTSTART1: if (c == BEGIN_CHAR0) state = PKTSTART2; break;
 
-			case PKTSTART2: if (c == BEGIN_CHAR1) state = PKTRECV; 
-							else {
-								printf("No '%c' following '%c' ", BEGIN_CHAR1, BEGIN_CHAR0);
-								return -1;
+			case PKTSTART2: if (c == BEGIN_CHAR1) state = PKTRECV;
+                            else {
+								printf("No '%c' following '%c' truning to PKTSTART1\n", BEGIN_CHAR1, BEGIN_CHAR0);
+								state = PKTSTART1;
 							}  
 							break;
 
