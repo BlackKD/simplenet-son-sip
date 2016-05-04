@@ -193,7 +193,7 @@ void* listen_to_neighbor(void* arg) {
    */
         sip_pkt_t* pkt = (sip_pkt_t*)malloc(sizeof(sip_pkt_t));
         memset(pkt,0,sizeof(sip_pkt_t));
-        recv(nt[*((int *)arg)].conn, pkt, sizeof(sip_pkt_t), 0);
+        recvpkt(pkt, nt[*((int *)arg)].conn);
         forwardpktToSIP(pkt,sip_conn);
         printf("send packet to IP\n");
 
