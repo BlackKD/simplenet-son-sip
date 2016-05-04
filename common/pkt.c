@@ -208,7 +208,7 @@ int forwardpktToSIP(sip_pkt_t* pkt, int sip_conn)
 	build_sipSendBuf(buffer, pkt);
 
 	// send it
-	return Send(sip_conn, buffer, sizeof(buffer));
+	return Send(sip_conn, buffer, 1504);
 }
 
 // sendpkt()函数由SON进程调用, 其作用是将接收自SIP进程的报文发送给下一跳.
@@ -224,7 +224,7 @@ int sendpkt(sip_pkt_t* pkt, int conn)
 	build_sipSendBuf(buffer, pkt);
 
 	// send it
-	return Send(conn, buffer, sizeof(buffer));
+	return Send(conn, buffer, 1504);
 }
 
 // recvpkt()函数由SON进程调用, 其作用是接收来自重叠网络中其邻居的报文.
