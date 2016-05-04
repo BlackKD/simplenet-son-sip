@@ -166,9 +166,11 @@ int son_recvpkt(sip_pkt_t* pkt, int son_conn)
 	printf("In son_recvpkt ");
 	
 	char *buf = (char *)pkt;
-	if (recv2buf(buf, sizeof(sip_pkt_t), son_conn) > 0)
-		return 1;
-	else 
+    if (recv2buf(buf, sizeof(sip_pkt_t), son_conn) > 0) {
+        printf("in son rec :myid:%d destid:%d\n", pkt->header.src_nodeID, pkt->header.dest_nodeID);
+        return 1;
+    }
+	else
 		return -1;
 }
 
