@@ -74,7 +74,7 @@ void* routeupdate_daemon(void* arg) {
     pkt->header.length = sizeof(pkt_routeupdate_t);
     pkt->header.type = ROUTE_UPDATE;
     pkt_routeupdate_t* pkuppt = (pkt_routeupdate_t*)malloc(sizeof(pkt_routeupdate_t));
-    memset(pkt,0,sizeof(pkt_routeupdate_t));
+    memset(pkuppt,0,sizeof(pkt_routeupdate_t));
     memcpy(pkt->data,pkuppt,sizeof(pkt_routeupdate_t));
     while(1)
     {
